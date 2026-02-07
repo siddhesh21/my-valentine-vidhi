@@ -44,7 +44,7 @@ body {
 
 .letter-window {
     width: 90vw;
-    max-width: 800px;
+    max-width: 900px;
     aspect-ratio: 3/2;
     padding: 20px 20px 0 20px;
     display: flex;
@@ -131,11 +131,49 @@ p {
 }
 
 .final-text {
-    font-size: 22px;
+    font-size: 18px;
     line-height: 1.4;
     text-align: center;
     display: inline-block;
     padding: 10px 20px;
     background-color: rgba(255, 240, 240, 0.5);
     border-radius: 12px;
+}
+
+.day-subtitle {
+    font-size: 18px;
+    opacity: 0.85;
+    margin-top: 8px;
+}
+
+#letter-title {
+    font-size: 26px;
+    padding-top: 20px;
+    margin-bottom: 10px;
+    line-height: 1.2;
+    letter-spacing: 0.04em;
+}
+
+body.sunflower-day {
+    background-image: url("sunflower-bg.jpg");
+}
+
+body.chocolate-day {
+    background-image: url("warm-brown-bg.jpg");
+}
+
+body.teddy-day {
+    background-image: url("soft-pink-bg.jpg");
+}
+
+body.promise-day {
+    background-image: url("cream-minimal-bg.jpg");
+}
+
+body.kiss-day {
+    background-image: url("deep-red-bg.jpg");
+}
+
+body.valentine-day {
+    background-image: url("starry-night-bg.jpg");
 }

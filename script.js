@@ -8,6 +8,9 @@ const title = document.getElementById("letter-title");
 const catImg = document.getElementById("letter-cat");
 const buttons = document.getElementById("letter-buttons");
 const finalText = document.getElementById("final-text");
+const day = "sunflower"; // sunflower, chocolate, teddy, promise, kiss, valentine
+
+document.body.classList.add(`${day}-day`);
 
 // Click Envelope
 
@@ -61,8 +64,9 @@ noBtn.addEventListener("click", () => {
 // On YES click
 
 yesBtn.addEventListener('click', () => {
-    title.textContent = "Yippee! See you soon! 💕";
-    catImg.src = "cat_dance.gif";
+    title.textContent = "Sunflowers suit us better anyway 🌻💕";
+    // title.textContent = "Yippee! See you soon! 💕";
+    catImg.src = "cat_sunflower.gif";
     document.querySelector(".letter-window").classList.add("final");
     buttons.style.display = "none";
     finalText.style.display = "block";
