@@ -191,6 +191,10 @@ p {
     width: 180px;
 }
 
+.letter-window.final .cat.no-shrink {
+    width: 250px;
+}
+
 /* =========================
    RING SHIMMER (PROPOSE DAY)
 ========================= */

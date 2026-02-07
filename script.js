@@ -23,9 +23,13 @@ const DAY_CONFIG = {
         envelopeText: "🌻 Sunflower Day 🌻",
         // title: "Not a Rose... But Something That Feels Like Us 🌻",
         subtitle: "Some things grow better their own way.",
-        cat: "cat_heart.gif",
+        cat: "cat_sunflower.gif",
         bodyClass: "sunflower-day",
         ringHint: false,
+        onYes: {
+            cat: "cat_ring.gif",
+            ringHint: true
+        },
         finalText: `
             <strong>Sunflower Day 🌻</strong><br><br>
             Just like sunflowers turn toward the sun,<br>
@@ -47,9 +51,8 @@ const DAY_CONFIG = {
         },
 
         finalText: `
-            <strong>Propose Day</strong><br><br>
-            Long distance taught us something important —<br>
-            love doesn't pause when we're apart.<br><br>
+            <strong>Propose Day</strong><br>
+            Love doesn't pause when we're apart.
             There's something coming for you, alongwith me.<br>
             Not to bind us, but to continue our flow,<br>
             without hesitation.
@@ -75,9 +78,11 @@ const DAY_CONFIG = {
  * DAY DETECTION
  **********************/
 function getValentineDay() {
-    const today = new Date();
-    const month = today.getMonth() + 1;
-    const date = today.getDate();
+    const istNow = new Date(
+        new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
+    );
+    const month = istNow.getMonth() + 1;
+    const date = istNow.getDate();
 
     if (month !== 2) return null;
 
@@ -109,7 +114,10 @@ title.textContent = dayConfig.title;
 subtitle.textContent = dayConfig.subtitle;
 
 catImg.src = dayConfig.cat;
-catImg.classList.remove("ring-cat", "ring-hint");
+catImg.classList.remove("ring-cat", "ring-hint", "no-shrink");
+if (dayConfig.cat === "cat_heart.gif") {
+    catImg.classList.add("no-shrink");
+}
 
 finalText.innerHTML = dayConfig.finalText;
 finalText.style.display = "none";
@@ -154,6 +162,9 @@ yesBtn.addEventListener("click", () => {
         setTimeout(() => {
             catImg.src = dayConfig.onYes.cat;
             catImg.classList.add("ring-cat");
+            if (dayConfig.onYes.cat !== "cat_heart.gif") {
+                catImg.classList.remove("no-shrink");
+            }
 
             if (dayConfig.onYes.ringHint) {
                 catImg.classList.add("ring-hint");
@@ -174,7 +185,7 @@ yesBtn.addEventListener("click", () => {
 /**********************
  * COUNTDOWN (OPTIONAL)
  **********************/
-const meetDate = new Date("March 14, 2026").getTime();
+const meetDate = new Date("2026-03-14T00:00:00+05:30").getTime();
 
 setInterval(() => {
     const now = Date.now();
