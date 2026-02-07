@@ -1,31 +1,64 @@
+/* =========================
+   BASE / RESET
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url("heart-bg.jpg");
-    font-family: "Pixelify Sans", sans-serif;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    font-family: "Playfair Display", serif;
+    transition: background-image 0.6s ease;
 }
 
-/* Envelope Screen */
+/* =========================
+   DAY-BASED BACKGROUNDS
+========================= */
+
+body.sunflower-day {
+    background-image:
+        linear-gradient(to bottom, rgba(255, 245, 200, 0.55), rgba(255, 230, 160, 0.65)),
+        url("sunflower-bg.jpg");
+    font-family: "Playfair Display", serif;
+}
+
+body.propose-day {
+    background-image:
+        url("propose-day-bg.jpg");
+    font-family: "Playfair Display", serif;
+}
+
+body.valentine-day {
+    background-image:
+        radial-gradient(circle at top, rgba(255, 210, 225, 0.7), rgba(180, 60, 90, 0.85)),
+        url("valentine-bg.jpg");
+    font-family: "Playfair Display", serif;
+    letter-spacing: 0.02em;
+}
+
+/* =========================
+   ENVELOPE SCREEN
+========================= */
+
 #envelope-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     cursor: pointer;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.1);
-    }
-
-    100% {
-        transform: scale(1);
-    }
 }
 
 #envelope {
@@ -34,33 +67,63 @@ body {
     cursor: pointer;
 }
 
+#envelope-text {
+    margin-top: 12px;
+    font-size: 20px;
+    opacity: 0.9;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* =========================
+   LETTER CONTAINER
+========================= */
+
 #letter-container {
     display: none;
     position: fixed;
     inset: 0;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
 }
 
+/* =========================
+   LETTER WINDOW (GRID-BASED)
+========================= */
+
 .letter-window {
-    width: 90vw;
-    max-width: 900px;
-    aspect-ratio: 3/2;
-    padding: 20px 20px 0 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    width: min(92vw, 820px);
+    height: min(88vh, 540px);
+
+    display: grid;
+    grid-template-rows: auto auto 1fr auto auto;
     align-items: center;
-    text-align: center;
+    justify-items: center;
+
+    padding: 140px 32px 36px;
+    gap: 12px;
+
     background-image: url("window.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    border-radius: 12px;
-    gap: 1px;
-    padding-top: 180px;
 
-    transform: scale(1.2);
+    border-radius: 14px;
+
+    transform: scale(1.15);
     opacity: 0;
     transition: transform 0.6s ease, opacity 0.6s ease;
 }
@@ -70,37 +133,95 @@ body {
     opacity: 1;
 }
 
-h1 {
-    font-size: 30px;
+/* =========================
+   TYPOGRAPHY
+========================= */
+
+#letter-title {
+    font-size: 28px;
+    line-height: 1.25;
     margin: 0;
+    letter-spacing: 0.04em;
+}
+
+.day-subtitle {
+    font-size: 18px;
+    opacity: 0.85;
+    margin-top: 6px;
 }
 
 p {
-    font-size: 40px;
+    margin: 0;
 }
 
-/* Cat */
+/* =========================
+   COUNTER
+========================= */
+
+.counter-text {
+    font-size: 18px;
+    margin-bottom: 6px;
+    padding: 8px 16px;
+
+    border-radius: 999px;
+    background: rgba(255, 245, 245, 0.75);
+    border: 1px solid rgba(255, 195, 195, 0.6);
+    box-shadow: 0 4px 16px rgba(255, 160, 160, 0.35);
+
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #4a1e1e;
+}
+
+/* =========================
+   CAT
+========================= */
 
 .cat {
-    width: 250px;
-    margin: 10px 0;
+    width: 260px;
+    margin: 6px 0;
     transition: width 0.4s ease;
+}
+
+.cat.ring-cat {
+    width: 300px;
 }
 
 .letter-window.final .cat {
     width: 180px;
 }
 
-/* buttons */
+/* =========================
+   RING SHIMMER (PROPOSE DAY)
+========================= */
+
+.ring-hint {
+    animation: ringPulse 3.2s ease-in-out infinite;
+}
+
+@keyframes ringPulse {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 2px rgba(255, 220, 190, 0.3));
+        transform: scale(1);
+    }
+
+    50% {
+        filter: drop-shadow(0 0 10px rgba(255, 220, 190, 0.7));
+        transform: scale(1.015);
+    }
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
 .buttons {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 30px;
-    position: relative;
-}
-
-.no-wrapper {
-    position: relative;
 }
 
 .btn {
@@ -109,71 +230,84 @@ p {
     user-select: none;
 }
 
-.yes-btn,
-.no-btn {
-    width: 120px;
-    height: auto;
-    display: inline-block;
-}
-
 .yes-btn {
-    position: relative;
     z-index: 2;
-    transform-origin: center center;
-    transition: transform 0.3s ease;
 }
 
 .no-btn {
     z-index: 1;
-    position: relative;
-    transition: transform 0.15s ease;
     cursor: default;
 }
 
+/* =========================
+   FINAL TEXT
+========================= */
+
 .final-text {
-    font-size: 18px;
-    line-height: 1.4;
+    font-size: 16px;
+    line-height: 1.5;
     text-align: center;
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: rgba(255, 240, 240, 0.5);
+
+    padding: 12px 22px;
+    margin-top: 10px;
+
+    background-color: rgba(255, 240, 240, 0.55);
     border-radius: 12px;
 }
 
-.day-subtitle {
-    font-size: 18px;
-    opacity: 0.85;
-    margin-top: 8px;
+/* =========================
+   HIDDEN LETTER
+========================= */
+
+#hidden-letter {
+    font-size: 15px;
+    opacity: 0;
+    margin-top: 22px;
+    max-width: 70%;
+    line-height: 1.6;
+    transition: opacity 1.6s ease;
 }
 
-#letter-title {
-    font-size: 26px;
-    padding-top: 20px;
-    margin-bottom: 10px;
-    line-height: 1.2;
-    letter-spacing: 0.04em;
+/* =========================
+   iPAD REFINEMENT
+========================= */
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    #letter-title {
+        font-size: 34px;
+    }
+
+    .day-subtitle {
+        font-size: 20px;
+    }
+
+    .cat {
+        width: 300px;
+    }
+
+    .cat.ring-cat {
+        width: 330px;
+    }
+
+    .final-text {
+        font-size: 18px;
+    }
 }
 
-body.sunflower-day {
-    background-image: url("sunflower-bg.jpg");
-}
+/* =========================
+   MOBILE SAFETY
+========================= */
 
-body.chocolate-day {
-    background-image: url("warm-brown-bg.jpg");
-}
+@media (max-width: 480px) {
+    .letter-window {
+        padding: 120px 20px 28px;
+    }
 
-body.teddy-day {
-    background-image: url("soft-pink-bg.jpg");
-}
+    #letter-title {
+        font-size: 22px;
+    }
 
-body.promise-day {
-    background-image: url("cream-minimal-bg.jpg");
-}
-
-body.kiss-day {
-    background-image: url("deep-red-bg.jpg");
-}
-
-body.valentine-day {
-    background-image: url("starry-night-bg.jpg");
+    .cat {
+        width: 220px;
+    }
 }
