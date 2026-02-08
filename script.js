@@ -168,7 +168,7 @@ function getValentineDay() {
  * MANUAL TEST OVERRIDE
  **********************/
 // Change this to "sunflower", "propose", "valentine" for testing
-const MANUAL_DAY = "chocolate"; // setting it to null for auto-detect
+const MANUAL_DAY = null; // setting it to null for auto-detect
 
 const activeDay =
     MANUAL_DAY || getValentineDay() || "sunflower";
