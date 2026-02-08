@@ -39,6 +39,13 @@ body.propose-day {
     font-family: "Playfair Display", serif;
 }
 
+body.chocolate-day {
+    background-image:
+        radial-gradient(circle at center, rgba(255, 220, 220, 0.75), rgba(200, 120, 120, 0.85)),
+        url("sweet-day-bg.jpg");
+    font-family: "Playfair Display", serif;
+}
+
 body.valentine-day {
     background-image:
         radial-gradient(circle at top, rgba(255, 210, 225, 0.7), rgba(180, 60, 90, 0.85)),
@@ -138,15 +145,20 @@ body.valentine-day {
 ========================= */
 
 #letter-title {
-    font-size: 28px;
-    line-height: 1.25;
+    font-family: "Playfair Display", serif;
+    font-size: clamp(14px, 2.2vw, 20px);
+    line-height: 1;
     margin: 0;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.01em;
+    max-width: 60%;
+    word-wrap: break-word;
 }
 
 .day-subtitle {
-    font-size: 18px;
-    opacity: 0.85;
+    font-family: "Playfair Display", serif;
+    font-size: clamp(14px, 1.8vw, 19px);
+    font-style: italic;
+    opacity: 0.88;
     margin-top: 6px;
 }
 
@@ -178,7 +190,7 @@ p {
 ========================= */
 
 .cat {
-    width: 260px;
+    width: 320px;
     margin: 6px 0;
     transition: width 0.4s ease;
 }
@@ -232,6 +244,11 @@ p {
     width: 120px;
     cursor: pointer;
     user-select: none;
+}
+
+.btn#choco-yes,
+.btn#choco-no {
+    width: 170px;
 }
 
 .yes-btn {
@@ -313,5 +330,60 @@ p {
 
     .cat {
         width: 220px;
+    }
+}
+
+/* =========================
+    PROGRESS INDICATOR 
+========================= */
+
+.progress-indicator {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+    opacity: 0.95;
+    background: rgba(255, 245, 245, 0.75);
+    border: 1px solid rgba(180, 120, 120, 0.35);
+    padding: 6px 10px;
+    border-radius: 999px;
+    box-shadow: 0 6px 16px rgba(120, 60, 60, 0.2);
+}
+
+.progress-dot {
+    font-size: 16px;
+    color: rgba(120, 80, 80, 0.6);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.progress-dot.active {
+    color: rgba(120, 60, 60, 0.9);
+    transform: scale(1.15);
+    opacity: 1;
+}
+
+.btn-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.btn-label {
+    position: absolute;
+    opacity: 0;
+    animation: fadeIn 0.6s ease forwards;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-family: "Playfair Display", serif;
+    color: #5a2a2a;
+    pointer-events: none;
+    text-align: center;
+    padding: 6px;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
     }
 }

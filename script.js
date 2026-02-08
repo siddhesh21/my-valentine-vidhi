@@ -9,8 +9,11 @@ const title = document.getElementById("letter-title");
 const subtitle = document.querySelector(".day-subtitle");
 const catImg = document.getElementById("letter-cat");
 const buttons = document.getElementById("letter-buttons");
-const yesBtn = document.querySelector(".yes-btn");
-const noBtn = document.querySelector(".no-btn");
+const yesBtn = document.querySelector("#letter-buttons .yes-btn");
+const noBtn = document.querySelector("#letter-buttons .no-btn");
+const chocolateButtons = document.getElementById("chocolate-buttons");
+const chocoYesBtn = document.getElementById("choco-yes");
+const chocoNoBtn = document.getElementById("choco-no");
 const finalText = document.getElementById("final-text");
 const counterText = document.getElementById("counter-text");
 const letterWindow = document.querySelector(".letter-window");
@@ -59,6 +62,69 @@ const DAY_CONFIG = {
         `
     },
 
+
+    chocolate: {
+        envelopeText: "🍫 A Little Comfort Day 🍫",
+        title: "This One's Just for You.",
+        subtitle: "Things I'd bring you without being asked.",
+        bodyClass: "chocolate-day",
+
+        steps: [
+            {
+                text: "When cramps hit and the world feels too loud…",
+                offer: "Biscoff, warmth, and zero expectations.",
+                cat: "cat_biscoff.gif"
+            },
+            {
+                text: "When you want something deep and grounding…",
+                offer: "70% dark chocolate. Slow bites.",
+                cat: "cat_dark_chocolate.gif"
+            },
+            {
+                text: "When you're craving something familiar and easy…",
+                offer: "Those Nutella biscuits you love.",
+                cat: "cat_nutella.gif"
+            },
+            {
+                text: "When your head feels heavy and thoughts won't slow…",
+                offer: "Ice peach tea. Cold glass. Quiet moments.",
+                cat: "cat_peach_tea.gif"
+            },
+            {
+                text: "When you want something fresh and gentle…",
+                offer: "Strawberries & blueberries, just washed.",
+                cat: "cat_berries.gif"
+            },
+            {
+                text: "When the day deserves a proper pause…",
+                offer: "Tiramisu. Soft, rich, unhurried.",
+                cat: "cat_tiramisu.gif"
+            },
+            {
+                text: "When you're in the mood for something indulgent…",
+                offer: "Strawberry cheesecake, just for you.",
+                cat: "cat_cheesecake.gif"
+            },
+            {
+                text: "When care looks like thoughtfulness…",
+                offer: "Figs and persimmon, picked just right.",
+                cat: "cat_fruit_basket.gif"
+            },
+            {
+                text: "And when the night slows down…",
+                offer: "A Cosmo. With me. No rush.",
+                cat: "cat_cosmo.gif"
+            }
+        ],
+
+        finalText: `
+        <strong>Chocolate Day</strong><br>
+        I may not always be there instantly,<br>
+        but I already know what helps.<br>
+        One day soon, I'll bring all of this myself.<br>
+        And stay.
+    `
+    },
     valentine: {
         envelopeText: "❤️ Valentine's Day ❤️",
         title: "I Choose You. Still.",
@@ -88,6 +154,11 @@ function getValentineDay() {
 
     if (date === 7) return "sunflower";
     if (date === 8) return "propose";
+    if (date === 9) return "chocolate";
+    if (date === 10) return "teddy";
+    if (date === 11) return "promise";
+    if (date === 12) return "Hug";
+    if (date === 13) return "kiss";
     if (date === 14) return "valentine";
 
     return null;
@@ -97,7 +168,7 @@ function getValentineDay() {
  * MANUAL TEST OVERRIDE
  **********************/
 // Change this to "sunflower", "propose", "valentine" for testing
-const MANUAL_DAY = null; // set to null for auto-detect
+const MANUAL_DAY = "chocolate"; // setting it to null for auto-detect
 
 const activeDay =
     MANUAL_DAY || getValentineDay() || "sunflower";
@@ -140,6 +211,7 @@ envelope.addEventListener("click", () => {
 let yesScale = 1;
 yesBtn.style.transformOrigin = "center center";
 yesBtn.style.transition = "transform 0.3s ease";
+let stepIndex = 0;
 
 noBtn.addEventListener("click", () => {
     yesScale += 1.2;
@@ -151,39 +223,120 @@ noBtn.addEventListener("click", () => {
 });
 
 /**********************
- * YES BUTTON — THE MOMENT
+ * INITIALIZE DAY
  **********************/
-yesBtn.addEventListener("click", () => {
-    buttons.style.display = "none";
-    title.style.display = "none";
+// function initializeDay() {
+//     if (dayConfig.steps) {
+//         loadChocolateStep(0);
+//         yesBtn.alt = "Yes";
+//         noBtn.alt = "No";
+//     } else {
+//         title.textContent = dayConfig.title;
+//         subtitle.textContent = dayConfig.subtitle;
+//         catImg.src = dayConfig.cat;
+//         finalText.innerHTML = dayConfig.finalText;
+//     }
+// }
 
-    // Reveal ring ONLY if configured
-    if (dayConfig.onYes?.cat) {
-        setTimeout(() => {
-            catImg.src = dayConfig.onYes.cat;
-            catImg.classList.add("ring-cat");
-            if (dayConfig.onYes.cat !== "cat_heart.gif") {
-                catImg.classList.remove("no-shrink");
-            }
-
-            if (dayConfig.onYes.ringHint) {
-                catImg.classList.add("ring-hint");
-            }
-        }, 400);
+function initializeDay() {
+    if (dayConfig.steps) {
+        loadChocolateStep(0);
+        buttons.style.display = "none";
+        chocolateButtons.style.display = "flex";
+    } else {
+        title.textContent = dayConfig.title;
+        subtitle.textContent = dayConfig.subtitle;
+        catImg.src = dayConfig.cat;
+        finalText.innerHTML = dayConfig.finalText;
+        buttons.style.display = "flex";
+        chocolateButtons.style.display = "none";
     }
-
-    letterWindow.classList.add("final");
-
-    finalText.style.display = "block";
-    finalText.style.opacity = 0;
-
-    setTimeout(() => {
-        finalText.style.opacity = 1;
-    }, 100);
-});
+}
 
 /**********************
- * COUNTDOWN (OPTIONAL)
+ * CHOCOLATE DAY STEPS
+ **********************/
+// function loadChocolateStep(index) {
+//     const step = dayConfig.steps[index];
+
+//     title.textContent = step.text;
+//     subtitle.textContent = step.offer;
+//     catImg.src = step.cat;
+// }
+
+function loadChocolateStep(index) {
+    const step = dayConfig.steps[index];
+
+    title.textContent = step.text;
+    subtitle.textContent = step.offer;
+    catImg.src = step.cat;
+
+    renderProgress(index, dayConfig.steps.length);
+}
+
+/**********************
+ * CHOCOLATE DAY BUTTON LABELS
+ **********************/
+function setChocolateButtonLabels() {
+    yesBtn.insertAdjacentHTML(
+        "afterend",
+        `<div class="btn-label">That sounds perfect 🫶</div>`
+    );
+
+    noBtn.insertAdjacentHTML(
+        "afterend",
+        `<div class="btn-label">Maybe later</div>`
+    );
+}
+
+/**********************
+ * BUTTON INTERACTIONS
+ **********************/
+yesBtn.addEventListener("click", () => handleChoice(true));
+noBtn.addEventListener("click", () => handleChoice(false));
+chocoYesBtn.addEventListener("click", () => handleChoice(true));
+chocoNoBtn.addEventListener("click", () => handleChoice(false));
+
+function handleChoice(isYes) {
+
+    // Chocolate Day step flow
+    if (dayConfig.steps) {
+        stepIndex++;
+
+        if (stepIndex < dayConfig.steps.length) {
+            loadChocolateStep(stepIndex);
+            return;
+        }
+        // End of steps
+        buttons.style.display = "none";
+        chocolateButtons.style.display = "none";
+        title.style.display = "none";
+        subtitle.style.display = "none";
+
+        finalText.innerHTML = dayConfig.finalText;
+        finalText.style.display = "block";
+        progressIndicator.style.display = "none";
+        return;
+    }
+
+    // Propose Day YES logic
+    if (isYes && dayConfig.onYes) {
+        catImg.src = dayConfig.onYes.cat;
+        catImg.classList.add("ring-cat");
+        if (dayConfig.onYes.ringHint) {
+            catImg.classList.add("ring-hint");
+        }
+    }
+
+    buttons.style.display = "none";
+    chocolateButtons.style.display = "none";
+    title.style.display = "none";
+    finalText.innerHTML = dayConfig.finalText;
+    finalText.style.display = "block";
+}
+
+/**********************
+ * COUNTDOWN
  **********************/
 const meetDate = new Date("2026-03-14T00:00:00+05:30").getTime();
 
@@ -199,3 +352,27 @@ setInterval(() => {
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     counterText.textContent = `Until I see you: ${days} days`;
 }, 1000);
+
+/**********************
+ * PROGRESS INDICATOR
+ **********************/
+
+const progressIndicator = document.getElementById("progress-indicator");
+
+function renderProgress(currentIndex, total) {
+    progressIndicator.innerHTML = "";
+
+    for (let i = 0; i < total; i++) {
+        const dot = document.createElement("span");
+        dot.textContent = "●";
+        dot.classList.add("progress-dot");
+
+        if (i <= currentIndex) {
+            dot.classList.add("active");
+        }
+
+        progressIndicator.appendChild(dot);
+    }
+}
+
+initializeDay();
