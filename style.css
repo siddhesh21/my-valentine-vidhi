@@ -46,6 +46,33 @@ body.chocolate-day {
     font-family: "Playfair Display", serif;
 }
 
+body.teddy-day {
+    background-image:
+        radial-gradient(circle at center, rgba(255, 220, 220, 0.75), rgba(200, 120, 120, 0.85)),
+        url("teddy-bg.png");
+    font-family: "Playfair Display", serif;
+}
+
+body.teddy-day #letter-title {
+    font-size: clamp(18px, 2vw, 24px);
+}
+
+body.teddy-day #teddy-buttons {
+    margin-top: -8px;
+}
+
+body.teddy-day .counter-text {
+    margin-top: 20px;
+}
+
+body.teddy-day #letter-title {
+    margin-top: 8px;
+}
+
+body.teddy-day .day-subtitle {
+    margin-top: 10px;
+}
+
 body.valentine-day {
     background-image:
         radial-gradient(circle at top, rgba(255, 210, 225, 0.7), rgba(180, 60, 90, 0.85)),
@@ -112,16 +139,16 @@ body.valentine-day {
 ========================= */
 
 .letter-window {
-    width: min(92vw, 820px);
-    height: min(88vh, 540px);
+    width: min(100vw, 920px);
+    height: min(108vh, 640px);
 
     display: grid;
     grid-template-rows: auto auto 1fr auto auto;
     align-items: center;
     justify-items: center;
 
-    padding: 140px 32px 36px;
-    gap: 12px;
+    padding: 120px 22px 26px;
+    gap: 8px;
 
     background-image: url("window.png");
     background-size: contain;

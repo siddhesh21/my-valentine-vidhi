@@ -14,6 +14,9 @@ const noBtn = document.querySelector("#letter-buttons .no-btn");
 const chocolateButtons = document.getElementById("chocolate-buttons");
 const chocoYesBtn = document.getElementById("choco-yes");
 const chocoNoBtn = document.getElementById("choco-no");
+const teddyButtons = document.getElementById("teddy-buttons");
+const teddyYesBtn = document.getElementById("teddy-yes");
+const teddyNoBtn = document.getElementById("teddy-no");
 const finalText = document.getElementById("final-text");
 const counterText = document.getElementById("counter-text");
 const letterWindow = document.querySelector(".letter-window");
@@ -123,6 +126,73 @@ const DAY_CONFIG = {
         but I already know what helps.<br>
         One day soon, I'll bring all of this myself.<br>
         And stay.
+    `
+    },
+    teddy: {
+        envelopeText: "🧸 Soft Things Day 🧸",
+        title: "Some Things Are Meant to Be Held.",
+        subtitle: "Not rushed. Not loud. Just yours.",
+        cat: "cat_husky.gif",
+        bodyClass: "teddy-day",
+
+        steps: [
+            {
+                text: "When you need something soft and familiar…",
+                offer: "A little white rabbit, waiting for you.",
+                cat: "cat_rabbit.gif"
+            },
+            {
+                text: "So a part of me stays with you…",
+                offer: "A perfume I chose just for you.",
+                cat: "cat_perfume.gif"
+            },
+            {
+                text: "Something I made, slowly.",
+                offer: "A small sunset, painted for you.",
+                cat: "cat_easel.gif"
+            },
+            {
+                text: "For days you disappear into stories.",
+                offer: "Books, anime, and quiet corners.",
+                cat: "cat_books.gif"
+            },
+            {
+                text: "For tired skin and softer nights.",
+                offer: "Strawberry body butter & warmth.",
+                cat: "cat_skincare.gif"
+            },
+            {
+                text: "For carrying little things that matter.",
+                offer: "Something Coach. Something you.",
+                cat: "cat_bag.gif"
+            },
+            {
+                text: "For luck. For us.",
+                offer: "A four-leaf clover, always close.",
+                cat: "cat_clover.gif"
+            },
+            {
+                text: "For tense days and gentle care.",
+                offer: "Flowers, comfort, and presence.",
+                cat: "cat_flowers.gif"
+            },
+            {
+                text: "And for the part of you that loves the sky…",
+                offer: "Something is coming. Just for you.",
+                cat: "cat_sky.gif"
+            }
+        ],
+
+        ringHint: false,
+        onYes: {
+            cat: "cat_husky.gif",
+            ringHint: true
+        },
+
+        finalText: `
+        <strong>Soft Things Day</strong><br><br>
+        I don't just love you. I look after you.<br>
+        And I always will.
     `
     },
     valentine: {
@@ -242,7 +312,8 @@ function initializeDay() {
     if (dayConfig.steps) {
         loadChocolateStep(0);
         buttons.style.display = "none";
-        chocolateButtons.style.display = "flex";
+        chocolateButtons.style.display = activeDay === "chocolate" ? "flex" : "none";
+        teddyButtons.style.display = activeDay === "teddy" ? "flex" : "none";
     } else {
         title.textContent = dayConfig.title;
         subtitle.textContent = dayConfig.subtitle;
@@ -250,6 +321,7 @@ function initializeDay() {
         finalText.innerHTML = dayConfig.finalText;
         buttons.style.display = "flex";
         chocolateButtons.style.display = "none";
+        teddyButtons.style.display = "none";
     }
 }
 
@@ -296,6 +368,8 @@ yesBtn.addEventListener("click", () => handleChoice(true));
 noBtn.addEventListener("click", () => handleChoice(false));
 chocoYesBtn.addEventListener("click", () => handleChoice(true));
 chocoNoBtn.addEventListener("click", () => handleChoice(false));
+teddyYesBtn.addEventListener("click", () => handleChoice(true));
+teddyNoBtn.addEventListener("click", () => handleChoice(false));
 
 function handleChoice(isYes) {
 
@@ -310,8 +384,17 @@ function handleChoice(isYes) {
         // End of steps
         buttons.style.display = "none";
         chocolateButtons.style.display = "none";
+        teddyButtons.style.display = "none";
         title.style.display = "none";
         subtitle.style.display = "none";
+
+        if (dayConfig.onYes?.cat) {
+            catImg.src = dayConfig.onYes.cat;
+            catImg.classList.add("ring-cat");
+            if (dayConfig.onYes.ringHint) {
+                catImg.classList.add("ring-hint");
+            }
+        }
 
         finalText.innerHTML = dayConfig.finalText;
         finalText.style.display = "block";
@@ -330,6 +413,7 @@ function handleChoice(isYes) {
 
     buttons.style.display = "none";
     chocolateButtons.style.display = "none";
+    teddyButtons.style.display = "none";
     title.style.display = "none";
     finalText.innerHTML = dayConfig.finalText;
     finalText.style.display = "block";
