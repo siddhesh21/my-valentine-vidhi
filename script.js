@@ -7,7 +7,8 @@ const envelopeText = document.getElementById("envelope-text");
 
 const title = document.getElementById("letter-title");
 const subtitle = document.querySelector(".day-subtitle");
-const catImg = document.getElementById("letter-cat");
+// const catImg = document.getElementById("letter-cat");
+const catImg = document.getElementById("letter-visual");
 const buttons = document.getElementById("letter-buttons");
 const yesBtn = document.querySelector("#letter-buttons .yes-btn");
 const noBtn = document.querySelector("#letter-buttons .no-btn");
@@ -17,9 +18,32 @@ const chocoNoBtn = document.getElementById("choco-no");
 const teddyButtons = document.getElementById("teddy-buttons");
 const teddyYesBtn = document.getElementById("teddy-yes");
 const teddyNoBtn = document.getElementById("teddy-no");
+const promiseButtons = document.getElementById("promise-buttons");
+const promiseYesBtn = document.getElementById("promise-yes");
+const promiseNoBtn = document.getElementById("promise-no");
 const finalText = document.getElementById("final-text");
 const counterText = document.getElementById("counter-text");
 const letterWindow = document.querySelector(".letter-window");
+
+/**********************
+ * PHOTO CONFIGURATION
+ **********************/
+
+function showVisual(step) {
+    catImg.classList.remove("fade-in");
+
+    setTimeout(() => {
+        if (step.image) {
+            catImg.src = step.image;
+            catImg.classList.add("photo-mode");
+        } else if (step.cat) {
+            catImg.src = step.cat;
+            catImg.classList.remove("photo-mode");
+        }
+
+        catImg.classList.add("fade-in");
+    }, 200);
+}
 
 /**********************
  * DAY CONFIGURATION
@@ -195,6 +219,50 @@ const DAY_CONFIG = {
         And I always will.
     `
     },
+    promise: {
+        envelopeText: "🤍 Promise Day 🤍",
+        title: "Promises We're Already Keeping",
+        subtitle: "Some things don't need to be announced.",
+        bodyClass: "promise-day",
+
+        steps: [
+            {
+                text: "I promise to show up — not just when it's exciting, but when it's ordinary.",
+                image: "promise_1.png"
+            },
+            {
+                text: "I promise that distance won't turn into silence.",
+                image: "promise_2.png"
+            },
+            {
+                text: "I promise to grow with you, not away from you.",
+                image: "promise_3.png"
+            },
+            {
+                text: "I promise to notice when you need softness, not solutions.",
+                image: "promise_4.png"
+            },
+            {
+                text: "I promise to choose you — even on days when choosing takes effort.",
+                image: "promise_5.png"
+            },
+            {
+                text: "And I promise… this isn't something I take lightly.",
+                image: "promise_6.png"
+            }
+        ],
+        ringHint: false,
+        onYes: {
+            cat: "promise_7.png",
+            ringHint: true
+        },
+        finalText: `
+        <strong>Promise Day</strong><br>
+        These aren't future vows.<br>
+        They're choices I already make.
+        Every day.
+    `
+    },
     valentine: {
         envelopeText: "❤️ Valentine's Day ❤️",
         title: "I Choose You. Still.",
@@ -281,6 +349,9 @@ envelope.addEventListener("click", () => {
 let yesScale = 1;
 yesBtn.style.transformOrigin = "center center";
 yesBtn.style.transition = "transform 0.3s ease";
+let promiseYesScale = 1;
+promiseYesBtn.style.transformOrigin = "center center";
+promiseYesBtn.style.transition = "transform 0.3s ease";
 let stepIndex = 0;
 
 noBtn.addEventListener("click", () => {
@@ -292,28 +363,27 @@ noBtn.addEventListener("click", () => {
     yesBtn.style.transform = `translate(-50%, -50%) scale(${yesScale})`;
 });
 
+promiseNoBtn.addEventListener("click", () => {
+    promiseYesScale += 1.2;
+
+    promiseYesBtn.style.position = "fixed";
+    promiseYesBtn.style.top = "50%";
+    promiseYesBtn.style.left = "50%";
+    promiseYesBtn.style.transform = `translate(-50%, -50%) scale(${promiseYesScale})`;
+});
+
 /**********************
  * INITIALIZE DAY
  **********************/
-// function initializeDay() {
-//     if (dayConfig.steps) {
-//         loadChocolateStep(0);
-//         yesBtn.alt = "Yes";
-//         noBtn.alt = "No";
-//     } else {
-//         title.textContent = dayConfig.title;
-//         subtitle.textContent = dayConfig.subtitle;
-//         catImg.src = dayConfig.cat;
-//         finalText.innerHTML = dayConfig.finalText;
-//     }
-// }
 
 function initializeDay() {
     if (dayConfig.steps) {
-        loadChocolateStep(0);
+        loadStep(0);
         buttons.style.display = "none";
+
         chocolateButtons.style.display = activeDay === "chocolate" ? "flex" : "none";
         teddyButtons.style.display = activeDay === "teddy" ? "flex" : "none";
+        promiseButtons.style.display = activeDay === "promise" ? "flex" : "none";
     } else {
         title.textContent = dayConfig.title;
         subtitle.textContent = dayConfig.subtitle;
@@ -326,7 +396,7 @@ function initializeDay() {
 }
 
 /**********************
- * CHOCOLATE DAY STEPS
+ * LOAD PROGRESS STEPS
  **********************/
 // function loadChocolateStep(index) {
 //     const step = dayConfig.steps[index];
@@ -334,14 +404,17 @@ function initializeDay() {
 //     title.textContent = step.text;
 //     subtitle.textContent = step.offer;
 //     catImg.src = step.cat;
+
+//     renderProgress(index, dayConfig.steps.length);
 // }
 
-function loadChocolateStep(index) {
+function loadStep(index) {
     const step = dayConfig.steps[index];
 
     title.textContent = step.text;
-    subtitle.textContent = step.offer;
-    catImg.src = step.cat;
+    subtitle.textContent = step.offer || "";
+
+    showVisual(step);
 
     renderProgress(index, dayConfig.steps.length);
 }
@@ -370,6 +443,8 @@ chocoYesBtn.addEventListener("click", () => handleChoice(true));
 chocoNoBtn.addEventListener("click", () => handleChoice(false));
 teddyYesBtn.addEventListener("click", () => handleChoice(true));
 teddyNoBtn.addEventListener("click", () => handleChoice(false));
+promiseYesBtn.addEventListener("click", () => handleChoice(true));
+promiseNoBtn.addEventListener("click", () => handleChoice(false));
 
 function handleChoice(isYes) {
 
@@ -378,13 +453,14 @@ function handleChoice(isYes) {
         stepIndex++;
 
         if (stepIndex < dayConfig.steps.length) {
-            loadChocolateStep(stepIndex);
+            loadStep(stepIndex);
             return;
         }
         // End of steps
         buttons.style.display = "none";
         chocolateButtons.style.display = "none";
         teddyButtons.style.display = "none";
+        promiseButtons.style.display = "none";
         title.style.display = "none";
         subtitle.style.display = "none";
 

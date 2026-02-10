@@ -53,6 +53,13 @@ body.teddy-day {
     font-family: "Playfair Display", serif;
 }
 
+body.promise-day {
+    background-image:
+        radial-gradient(circle at center, rgba(255, 220, 220, 0.75), rgba(200, 120, 120, 0.85)),
+        url("promise-day-bg.png");
+    font-family: "Playfair Display", serif;
+}
+
 body.teddy-day #letter-title {
     font-size: clamp(18px, 2vw, 24px);
 }
@@ -71,6 +78,27 @@ body.teddy-day #letter-title {
 
 body.teddy-day .day-subtitle {
     margin-top: 10px;
+}
+
+body.promise-day #promise-buttons {
+    margin-top: -8px;
+}
+
+body.promise-day .counter-text {
+    margin-top: 20px;
+}
+
+body.promise-day #letter-title {
+    margin-top: 8px;
+    font-size: clamp(18px, 2vw, 25px);
+    color: #4a1e1e;
+}
+
+body.promise-day .day-subtitle {
+    margin-top: 10px;
+    font-size: clamp(14px, 1.7vw, 18px);
+    font-style: italic;
+    color: #6a2a2a;
 }
 
 body.valentine-day {
@@ -177,8 +205,9 @@ body.valentine-day {
     line-height: 1;
     margin: 0;
     letter-spacing: 0.01em;
-    max-width: 60%;
+    max-width: 70%;
     word-wrap: break-word;
+    ;
 }
 
 .day-subtitle {
@@ -403,7 +432,6 @@ p {
     justify-content: center;
     font-size: 14px;
     font-family: "Playfair Display", serif;
-    color: #5a2a2a;
     pointer-events: none;
     text-align: center;
     padding: 6px;
@@ -413,4 +441,20 @@ p {
     to {
         opacity: 1;
     }
+}
+
+.cat {
+    opacity: 0;
+}
+
+.cat.fade-in {
+    opacity: 1;
+    transition: opacity 0.8s ease;
+}
+
+.photo-mode {
+    border-radius: 12px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    max-height: 260px;
+    object-fit: contain;
 }
