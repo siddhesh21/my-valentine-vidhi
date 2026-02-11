@@ -60,6 +60,42 @@ body.promise-day {
     font-family: "Playfair Display", serif;
 }
 
+body.hug-day {
+    background-image:
+        radial-gradient(circle at center,
+            rgba(255, 228, 200, 0.65),
+            rgba(235, 190, 150, 0.75)),
+        linear-gradient(rgba(255, 210, 220, 0.18),
+            rgba(255, 210, 220, 0.18)),
+        url("hug-day-bg.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    font-family: "Playfair Display", serif;
+}
+
+body.hug-day #letter-title {
+    margin-top: 20px;
+}
+
+body.hug-day #letter-title {
+    font-size: clamp(17px, 2vw, 23px);
+}
+
+body.hug-day .day-subtitle {
+    font-size: clamp(13px, 1.6vw, 17px);
+}
+
+body.hug-day #hug-buttons .btn {
+    width: 200px;
+}
+
+body.hug-day #hug-buttons {
+    margin-top: -18px;
+}
+
 body.teddy-day #letter-title {
     font-size: clamp(18px, 2vw, 24px);
 }
@@ -167,8 +203,8 @@ body.valentine-day {
 ========================= */
 
 .letter-window {
-    width: min(100vw, 920px);
-    height: min(108vh, 640px);
+    width: min(100vw, 820px);
+    height: min(108vh, 600px);
 
     display: grid;
     grid-template-rows: auto auto 1fr auto auto;
@@ -457,4 +493,20 @@ p {
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
     max-height: 260px;
     object-fit: contain;
+}
+
+.cat {
+    animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
 }

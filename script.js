@@ -21,6 +21,9 @@ const teddyNoBtn = document.getElementById("teddy-no");
 const promiseButtons = document.getElementById("promise-buttons");
 const promiseYesBtn = document.getElementById("promise-yes");
 const promiseNoBtn = document.getElementById("promise-no");
+const hugButtons = document.getElementById("hug-buttons");
+const hugYesBtn = document.getElementById("hug-yes");
+const hugNoBtn = document.getElementById("hug-no");
 const finalText = document.getElementById("final-text");
 const counterText = document.getElementById("counter-text");
 const letterWindow = document.querySelector(".letter-window");
@@ -263,6 +266,45 @@ const DAY_CONFIG = {
         Every day.
     `
     },
+    hug: {
+        envelopeText: "🤍 Hug Day 🤍",
+        title: "The Way We Fit",
+        subtitle: "Some hugs don't need words.",
+        bodyClass: "hug-day",
+
+        steps: [
+            {
+                text: "The way we hold each other like the world can wait.",
+                cat: "hug_4.gif"
+            },
+            {
+                text: "Even when we say nothing, we lean toward each other.",
+                cat: "hug_5.gif"
+            },
+            {
+                text: "Some days, love is just being a place to rest.",
+                cat: "hug_2.gif"
+            },
+            {
+                text: "Your heartbeat feels like home.",
+                cat: "hug_3.gif"
+            },
+            {
+                text: "And when everything gets loud… we soften.",
+                cat: "hug_1.gif"
+            }
+        ],
+        ringHint: false,
+        onYes: {
+            cat: "hug_6.gif",
+            ringHint: true
+        },
+        finalText: `
+        <strong>Hug Day</strong><br>
+        Until I can hold you again,<br>
+        I carry that warmth with me.
+    `
+    },
     valentine: {
         envelopeText: "❤️ Valentine's Day ❤️",
         title: "I Choose You. Still.",
@@ -295,7 +337,7 @@ function getValentineDay() {
     if (date === 9) return "chocolate";
     if (date === 10) return "teddy";
     if (date === 11) return "promise";
-    if (date === 12) return "Hug";
+    if (date === 12) return "hug";
     if (date === 13) return "kiss";
     if (date === 14) return "valentine";
 
@@ -384,6 +426,7 @@ function initializeDay() {
         chocolateButtons.style.display = activeDay === "chocolate" ? "flex" : "none";
         teddyButtons.style.display = activeDay === "teddy" ? "flex" : "none";
         promiseButtons.style.display = activeDay === "promise" ? "flex" : "none";
+        hugButtons.style.display = activeDay === "hug" ? "flex" : "none";
     } else {
         title.textContent = dayConfig.title;
         subtitle.textContent = dayConfig.subtitle;
@@ -392,21 +435,14 @@ function initializeDay() {
         buttons.style.display = "flex";
         chocolateButtons.style.display = "none";
         teddyButtons.style.display = "none";
+        promiseButtons.style.display = "none";
+        hugButtons.style.display = "none";
     }
 }
 
 /**********************
  * LOAD PROGRESS STEPS
  **********************/
-// function loadChocolateStep(index) {
-//     const step = dayConfig.steps[index];
-
-//     title.textContent = step.text;
-//     subtitle.textContent = step.offer;
-//     catImg.src = step.cat;
-
-//     renderProgress(index, dayConfig.steps.length);
-// }
 
 function loadStep(index) {
     const step = dayConfig.steps[index];
@@ -445,6 +481,8 @@ teddyYesBtn.addEventListener("click", () => handleChoice(true));
 teddyNoBtn.addEventListener("click", () => handleChoice(false));
 promiseYesBtn.addEventListener("click", () => handleChoice(true));
 promiseNoBtn.addEventListener("click", () => handleChoice(false));
+hugYesBtn.addEventListener("click", () => handleChoice(true));
+hugNoBtn.addEventListener("click", () => handleChoice(false));
 
 function handleChoice(isYes) {
 
@@ -461,6 +499,7 @@ function handleChoice(isYes) {
         chocolateButtons.style.display = "none";
         teddyButtons.style.display = "none";
         promiseButtons.style.display = "none";
+        hugButtons.style.display = "none";
         title.style.display = "none";
         subtitle.style.display = "none";
 
@@ -490,6 +529,8 @@ function handleChoice(isYes) {
     buttons.style.display = "none";
     chocolateButtons.style.display = "none";
     teddyButtons.style.display = "none";
+    promiseButtons.style.display = "none";
+    hugButtons.style.display = "none";
     title.style.display = "none";
     finalText.innerHTML = dayConfig.finalText;
     finalText.style.display = "block";
