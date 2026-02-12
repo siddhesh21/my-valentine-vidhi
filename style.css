@@ -76,6 +76,35 @@ body.hug-day {
     font-family: "Playfair Display", serif;
 }
 
+body.kiss-day {
+    background-image:
+        radial-gradient(circle at center,
+            rgba(255, 210, 210, 0.55),
+            rgba(200, 120, 140, 0.75)),
+        url("kiss-day-bg.gif");
+    font-family: "Playfair Display", serif;
+}
+
+body.kiss-day #letter-title {
+    margin-top: 20px;
+}
+
+body.kiss-day #letter-title {
+    font-size: clamp(17px, 2vw, 23px);
+}
+
+body.kiss-day .day-subtitle {
+    font-size: clamp(13px, 1.6vw, 17px);
+}
+
+body.kiss-day #kiss-buttons .btn {
+    width: 200px;
+}
+
+body.kiss-day #kiss-buttons {
+    margin-top: -18px;
+}
+
 body.hug-day #letter-title {
     margin-top: 20px;
 }

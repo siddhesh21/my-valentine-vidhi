@@ -24,6 +24,9 @@ const promiseNoBtn = document.getElementById("promise-no");
 const hugButtons = document.getElementById("hug-buttons");
 const hugYesBtn = document.getElementById("hug-yes");
 const hugNoBtn = document.getElementById("hug-no");
+const kissButtons = document.getElementById("kiss-buttons");
+const kissYesBtn = document.getElementById("kiss-yes");
+const kissNoBtn = document.getElementById("kiss-no");
 const finalText = document.getElementById("final-text");
 const counterText = document.getElementById("counter-text");
 const letterWindow = document.querySelector(".letter-window");
@@ -305,6 +308,49 @@ const DAY_CONFIG = {
         I carry that warmth with me.
     `
     },
+    kiss: {
+        envelopeText: "💋 Kiss Day 💋",
+        title: "Closer Than Distance",
+        subtitle: "Some kisses are promises too.",
+        bodyClass: "kiss-day",
+
+        steps: [
+            {
+                text: "A kiss that says, “I'm here.”",
+                image: "kiss_1.gif"
+            },
+            {
+                text: "A kiss that softens the day.",
+                image: "kiss_2.JPG"
+            },
+            {
+                text: "A kiss that feels like home.",
+                image: "kiss_7.JPG"
+            },
+            {
+                text: "A kiss that lingers on the mind.",
+                image: "kiss_4.JPG"
+            },
+            {
+                text: "A kiss that makes time slow down.",
+                image: "kiss_5.jpg"
+            },
+            {
+                text: "A kiss that says, “more of us.”",
+                image: "kiss_6.JPG"
+            }
+        ],
+        ringHint: false,
+        onYes: {
+            cat: "kiss_3.gif",
+            ringHint: false
+        },
+        finalText: `
+        <strong>Kiss Day</strong><br>
+        Until I can kiss you for real,<br>
+        keep this one with you.
+    `
+    },
     valentine: {
         envelopeText: "❤️ Valentine's Day ❤️",
         title: "I Choose You. Still.",
@@ -427,6 +473,7 @@ function initializeDay() {
         teddyButtons.style.display = activeDay === "teddy" ? "flex" : "none";
         promiseButtons.style.display = activeDay === "promise" ? "flex" : "none";
         hugButtons.style.display = activeDay === "hug" ? "flex" : "none";
+        kissButtons.style.display = activeDay === "kiss" ? "flex" : "none";
     } else {
         title.textContent = dayConfig.title;
         subtitle.textContent = dayConfig.subtitle;
@@ -437,6 +484,7 @@ function initializeDay() {
         teddyButtons.style.display = "none";
         promiseButtons.style.display = "none";
         hugButtons.style.display = "none";
+        kissButtons.style.display = "none";
     }
 }
 
@@ -483,6 +531,8 @@ promiseYesBtn.addEventListener("click", () => handleChoice(true));
 promiseNoBtn.addEventListener("click", () => handleChoice(false));
 hugYesBtn.addEventListener("click", () => handleChoice(true));
 hugNoBtn.addEventListener("click", () => handleChoice(false));
+kissYesBtn.addEventListener("click", () => handleChoice(true));
+kissNoBtn.addEventListener("click", () => handleChoice(false));
 
 function handleChoice(isYes) {
 
@@ -500,6 +550,7 @@ function handleChoice(isYes) {
         teddyButtons.style.display = "none";
         promiseButtons.style.display = "none";
         hugButtons.style.display = "none";
+        kissButtons.style.display = "none";
         title.style.display = "none";
         subtitle.style.display = "none";
 
@@ -531,6 +582,7 @@ function handleChoice(isYes) {
     teddyButtons.style.display = "none";
     promiseButtons.style.display = "none";
     hugButtons.style.display = "none";
+    kissButtons.style.display = "none";
     title.style.display = "none";
     finalText.innerHTML = dayConfig.finalText;
     finalText.style.display = "block";
